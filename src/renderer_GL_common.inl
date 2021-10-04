@@ -267,7 +267,7 @@ static char shader_message[256];
 
 static GPU_bool isExtensionSupported(const char* extension_str)
 {
-#ifdef SDL_GPU_USE_OPENGL
+#if defined(SDL_GPU_USE_OPENGL) && !defined(XBOX)
     return glewIsExtensionSupported(extension_str);
 #else
     // As suggested by Mesa3D.org
@@ -1659,7 +1659,7 @@ static GPU_Target* CreateTargetFromWindow(GPU_Renderer* renderer, Uint32 windowI
     cdata->last_depth_test = GPU_FALSE;
     cdata->last_depth_write = GPU_TRUE;
 
-    #ifdef SDL_GPU_USE_OPENGL
+    #if defined(SDL_GPU_USE_OPENGL) && !defined(XBOX)
     glewExperimental = GL_TRUE;  // Force GLEW to get exported functions instead of checking via extension string
     err = glewInit();
     if (GLEW_OK != err)
@@ -2051,6 +2051,9 @@ static void ResetRendererState(GPU_Renderer* renderer)
 static GPU_bool AddDepthBuffer(GPU_Renderer* renderer, GPU_Target* target)
 {
     #if defined(SDL_GPU_USE_GLES) && SDL_GPU_GLES_MAJOR_VERSION == 1
+    GPU_PushErrorCode("GPU_AddDepthBuffer", GPU_ERROR_USER_ERROR, "Not supported in GL ES 1.1.");
+    return GPU_FALSE;
+    #elif defined(XBOX)
     GPU_PushErrorCode("GPU_AddDepthBuffer", GPU_ERROR_USER_ERROR, "Not supported in GL ES 1.1.");
     return GPU_FALSE;
     #else

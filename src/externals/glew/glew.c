@@ -33,7 +33,13 @@
 #include "GL/glew.h"
 
 #if defined(_WIN32)
-#  include "GL/wglew.h"
+#  if defined(XBOX)
+#    include "GL/gl.h"
+#    include "GL/glext.h"
+#    include <windows.h>
+#  else
+#    include "GL/wglew.h"
+#  endif
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 #  include "GL/glxew.h"
 #endif
@@ -47,7 +53,7 @@
  */
 #ifdef GLEW_MX
 #  define glewGetContext() ctx
-#  ifdef _WIN32
+#  if defined(_WIN32) && !defined(XBOX)
 #    define GLEW_CONTEXT_ARG_DEF_INIT GLEWContext* ctx
 #    define GLEW_CONTEXT_ARG_VAR_INIT ctx
 #    define wglewGetContext() ctx
@@ -171,6 +177,8 @@ void* NSGLGetProcAddress (const GLubyte *name)
  */
 #if defined(GLEW_REGAL)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *) name)
+#elif defined(XBOX)
+#  define glewGetProcAddress(name) NULL /* TODO */
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -12345,7 +12353,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 
 #if defined(_WIN32)
 
-#if !defined(GLEW_MX)
+#if !defined(GLEW_MX) && !defined(XBOX)
 
 PFNWGLSETSTEREOEMITTERSTATE3DLPROC __wglewSetStereoEmitterState3DL = NULL;
 
@@ -13138,6 +13146,7 @@ static GLboolean _glewInit_WGL_OML_sync_control (WGLEW_CONTEXT_ARG_DEF_INIT)
 
 /* ------------------------------------------------------------------------- */
 
+#if !defined(XBOX)
 static PFNWGLGETEXTENSIONSSTRINGARBPROC _wglewGetExtensionsStringARB = NULL;
 static PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglewGetExtensionsStringEXT = NULL;
 
@@ -13373,6 +13382,7 @@ GLenum GLEWAPIENTRY wglewContextInit (WGLEW_CONTEXT_ARG_DEF_LIST)
 
   return GLEW_OK;
 }
+#endif /* !defined(XBOX) */
 
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 
@@ -14604,7 +14614,7 @@ GLboolean glewExperimental = GL_FALSE;
 
 #if !defined(GLEW_MX)
 
-#if defined(_WIN32)
+#if defined(_WIN32) && !defined(XBOX)
 extern GLenum GLEWAPIENTRY wglewContextInit (void);
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 extern GLenum GLEWAPIENTRY glxewContextInit (void);
@@ -14615,7 +14625,9 @@ GLenum GLEWAPIENTRY glewInit (void)
   GLenum r;
   r = glewContextInit();
   if ( r != 0 ) return r;
-#if defined(_WIN32)
+#if defined(XBOX)
+  return r;
+#elif defined(_WIN32)
   return wglewContextInit();
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) /* _UNIX */
   return glxewContextInit();

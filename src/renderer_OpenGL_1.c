@@ -23,7 +23,6 @@ void GPU_FreeRenderer_OpenGL_1(GPU_Renderer* renderer) {}
 #include "renderer_GL_common.inl"
 #include "renderer_shapes_GL_common.inl"
 
-
 GPU_Renderer* GPU_CreateRenderer_OpenGL_1(GPU_RendererID request)
 {
     GPU_Renderer* renderer = (GPU_Renderer*)SDL_malloc(sizeof(GPU_Renderer));

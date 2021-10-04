@@ -159,7 +159,11 @@
 /* <wingdi.h> and <winnt.h> */
 #ifndef WINGDIAPI
 #define GLEW_WINGDIAPI_DEFINED
-#define WINGDIAPI __declspec(dllimport)
+#  if defined(XBOX)
+#    define WINGDIAPI extern
+#  else
+#    define WINGDIAPI __declspec(dllimport)
+#  endif
 #endif
 /* <ctype.h> */
 #if (defined(_MSC_VER) || defined(__BORLANDC__)) && !defined(_WCHAR_T_DEFINED)
