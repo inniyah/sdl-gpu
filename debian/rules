@@ -19,7 +19,7 @@ config-stamp:
 	mkdir $(BUILD_TREE)
 	cd $(BUILD_TREE) && cmake $(CURDIR)/ \
 		--debug-output \
-		-DCMAKE_BUILD_TYPE=Debug \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
 		-DCMAKE_INSTALL_PREFIX:STRING="/usr" \
 		-DCMAKE_C_FLAGS:STRING="$(CFLAGS)" \
@@ -49,6 +49,7 @@ clean:
 	rm -rf src/externals/glew
 	rm -rf $(BUILD_TREE)
 	[ ! -d debian/patches ] || $(MAKE) -f /usr/share/quilt/quilt.make unpatch
+	find demos tests -type f -exec chmod 0644 {} +
 	dh_clean
 
 install: build
