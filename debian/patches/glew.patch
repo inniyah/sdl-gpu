@@ -1,0 +1,91 @@
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/demos/CMakeLists.txt
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/demos/CMakeLists.txt
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/demos/CMakeLists.txt
+@@ -10,7 +10,7 @@ endif(MINGW)
+ add_executable(init-demo init/main.c)
+ target_link_libraries (init-demo ${DEMO_LIBS})
+ 
+-add_executable(3d-demo 3d/main.c ../src/externals/glew/glew.c)
++add_executable(3d-demo 3d/main.c)
+ target_link_libraries (3d-demo ${DEMO_LIBS})
+ 
+ add_executable(tutorial-space-demo tutorial-space/main.c)
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/demos/3d/main.c
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/demos/3d/main.c
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/demos/3d/main.c
+@@ -1,7 +1,7 @@
+ #include "SDL.h"
+ #include "SDL_gpu.h"
+ #include "SDL_gpu_OpenGL_1.h"
+-#include "glew.h"
++#include <GL/glew.h>
+ #include <stdlib.h>
+ 
+ 
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_1.h
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/include/SDL_gpu_OpenGL_1.h
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_1.h
+@@ -11,7 +11,7 @@
+     #define _WINGDI_H
+     #endif
+ 
+-    #include "glew.h"
++    #include <GL/glew.h>
+ 	
+ 	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
+ 		#define GL_BGR GL_BGR_EXT
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_1_BASE.h
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/include/SDL_gpu_OpenGL_1_BASE.h
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_1_BASE.h
+@@ -11,7 +11,7 @@
+     #define _WINGDI_H
+     #endif
+ 
+-    #include "glew.h"
++    #include <GL/glew.h>
+ 	
+ 	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
+ 		#define GL_BGR GL_BGR_EXT
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_2.h
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/include/SDL_gpu_OpenGL_2.h
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_2.h
+@@ -11,7 +11,7 @@
+     #define _WINGDI_H
+     #endif
+     
+-    #include "glew.h"
++    #include <GL/glew.h>
+ 	
+ 	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
+ 		#define GL_BGR GL_BGR_EXT
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_3.h
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/include/SDL_gpu_OpenGL_3.h
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_3.h
+@@ -11,7 +11,7 @@
+     #define _WINGDI_H
+     #endif
+     
+-    #include "glew.h"
++    #include <GL/glew.h>
+ 	
+ 	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
+ 		#define GL_BGR GL_BGR_EXT
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_4.h
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/include/SDL_gpu_OpenGL_4.h
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/include/SDL_gpu_OpenGL_4.h
+@@ -11,7 +11,7 @@
+     #define _WINGDI_H
+     #endif
+     
+-    #include "glew.h"
++    #include <GL/glew.h>
+ 	
+ 	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
+ 		#define GL_BGR GL_BGR_EXT

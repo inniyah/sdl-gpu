@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/DEB_HOST_MULTIARCH
+includedir=${prefix}/include
+
+Name: SDL2_image
+Description: library for making hardware-accelerated 2D graphics easy
+Version: 0.12
+Requires: sdl2 >= 2.0.8
+Libs: -L${libdir} -lSDL2_gpu
+Cflags: -I${includedir}/SDL2

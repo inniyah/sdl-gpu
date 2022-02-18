@@ -1,0 +1,14 @@
+Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/src/CMakeLists.txt
+===================================================================
+--- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/src/CMakeLists.txt
++++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/src/CMakeLists.txt
+@@ -160,7 +160,8 @@ if(BUILD_SHARED)
+ 			set_target_properties(SDL_gpu_shared PROPERTIES
+ 				OUTPUT_NAME ${SHARED_OUTPUT}
+ 				CLEAN_DIRECT_OUTPUT 1
+-#				VERSION ${SDL_GPU_VERSION}
++				VERSION ${SDL_GPU_VERSION}
++				SOVERSION ${VERSION_MAJOR}
+ 				ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${OUTPUT_DIR}/lib"
+ 				LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${OUTPUT_DIR}/lib"
+ 				RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${OUTPUT_DIR}/bin"

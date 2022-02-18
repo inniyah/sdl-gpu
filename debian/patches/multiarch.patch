@@ -1,0 +1,38 @@
+Index: sdl-gpu-0.0+git20201002/CMakeLists.txt
+===================================================================
+--- sdl-gpu-0.0+git20201002.orig/CMakeLists.txt
++++ sdl-gpu-0.0+git20201002/CMakeLists.txt
+@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
+ 
+ project(SDL_gpu)
+ 
++include(GNUInstallDirs)
++
+ file(READ ${CMAKE_CURRENT_SOURCE_DIR}/version.txt VERSION_FILE_CONTENTS)
+ 
+ if((NOT DEFINED VERSION_MAJOR OR NOT DEFINED VERSION_MINOR OR NOT DEFINED VERSION_BUGFIX) AND VERSION_FILE_CONTENTS STREQUAL "")
+Index: sdl-gpu-0.0+git20201002/src/CMakeLists.txt
+===================================================================
+--- sdl-gpu-0.0+git20201002.orig/src/CMakeLists.txt
++++ sdl-gpu-0.0+git20201002/src/CMakeLists.txt
+@@ -204,16 +204,16 @@ source_group(Common FILES ${SDL_gpu_SRCS
+ # Install the headers and library
+ if(INSTALL_LIBRARY)
+ 	if(USE_SDL1)
+-		install(FILES ${SDL_gpu_public_HDRS} DESTINATION include/SDL)
++		install(FILES ${SDL_gpu_public_HDRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SDL)
+ 	else(USE_SDL1)
+-		install(FILES ${SDL_gpu_public_HDRS} DESTINATION include/SDL2)
++		install(FILES ${SDL_gpu_public_HDRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SDL2)
+ 	endif(USE_SDL1)
+ 
+ 	if(BUILD_SHARED)
+-		install(TARGETS SDL_gpu_shared EXPORT SDL_gpu-targets DESTINATION lib)
++		install(TARGETS SDL_gpu_shared EXPORT SDL_gpu-targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 	endif()
+ 	if(BUILD_STATIC)
+-		install(TARGETS SDL_gpu EXPORT SDL_gpu-targets DESTINATION lib)
++		install(TARGETS SDL_gpu EXPORT SDL_gpu-targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 	endif()
+ 
+ endif(INSTALL_LIBRARY)

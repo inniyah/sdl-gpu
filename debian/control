@@ -1,0 +1,43 @@
+Source: sdl-gpu
+Section: libs
+Priority: optional
+Maintainer: Miriam Ruiz <miriam@debian.org>
+Build-Depends: debhelper (>= 10), dh-buildinfo, quilt, pkg-config,
+               cmake,
+               libglew-dev,
+               libsdl2-dev,
+               libglu1-mesa-dev | libglu-dev,
+               libgl1-mesa-dev | libgl-dev,
+               libgles2-mesa-dev | libgles2-dev,
+Standards-Version: 4.5.1.0
+Homepage: https://github.com/grimfang4/sdl-gpu
+
+Package: libsdl2-gpu-dev
+Section: libdevel
+Architecture: any
+Depends: libsdl2-gpu-0 (= ${binary:Version}), libglew-dev, ${shlibs:Depends}, ${misc:Depends}
+Recommends: libsdl2-dev, pkg-config
+Description: library for making hardware-accelerated 2D graphics easy - devel
+ SLD gpu is a library for high-performance, modern 2D graphics with SDL
+ written in C.
+ .
+ This package contains the development libraries and headers.
+
+Package: libsdl2-gpu-0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: libsdl2-gpu-dev (= ${binary:Version})
+Description: library for making hardware-accelerated 2D graphics easy
+ SLD gpu is a library for high-performance, modern 2D graphics with SDL
+ written in C.
+
+Package: libsdl2-gpu-demos
+Section: libdevel
+Architecture: any
+Depends: libsdl2-gpu-dev, ${shlibs:Depends}, ${misc:Depends}
+Description: library for making hardware-accelerated 2D graphics easy - demos
+ SLD gpu is a library for high-performance, modern 2D graphics with SDL
+ written in C.
+ .
+ This package contains test code and demos.
