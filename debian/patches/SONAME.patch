@@ -1,7 +1,7 @@
-Index: sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/src/CMakeLists.txt
+Index: sdl-gpu_0.0+git20210719/src/CMakeLists.txt
 ===================================================================
---- sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf.orig/src/CMakeLists.txt
-+++ sdl-gpu-47a3e2b2a9326c33ad6f177794705987399de8cf/src/CMakeLists.txt
+--- sdl-gpu_0.0+git20210719.orig/src/CMakeLists.txt
++++ sdl-gpu_0.0+git20210719/src/CMakeLists.txt
 @@ -160,7 +160,8 @@ if(BUILD_SHARED)
  			set_target_properties(SDL_gpu_shared PROPERTIES
  				OUTPUT_NAME ${SHARED_OUTPUT}

@@ -1,3 +1,9 @@
+sdl-gpu (0.0+git20210719-0inniyah1) UNRELEASED; urgency=medium
+
+  * New upstream code.
+
+ -- Miriam Ruiz <miriam@debian.org>  Thu, 12 Aug 2021 22:06:33 +0200
+
 sdl-gpu (0.0+git20201002-0inniyah1) UNRELEASED; urgency=low
 
   * Initial release.
