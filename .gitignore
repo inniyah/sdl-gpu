@@ -2,10 +2,11 @@ CMakeCache.txt
 CMakeFiles
 Makefile
 build/
+.pc/
 *.cmake
 *-demo
 *-test
 *.a
 *.so
 *.o
-
+*~
