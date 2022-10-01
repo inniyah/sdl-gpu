@@ -1,3 +1,4 @@
+SDL_detection.patch
 SONAME.patch
 glew.patch
 multiarch.patch

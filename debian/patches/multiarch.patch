@@ -1,7 +1,7 @@
-Index: sdl-gpu_0.0+git20210719/CMakeLists.txt
+Index: sdl-gpu/CMakeLists.txt
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/CMakeLists.txt
-+++ sdl-gpu_0.0+git20210719/CMakeLists.txt
+--- sdl-gpu.orig/CMakeLists.txt
++++ sdl-gpu/CMakeLists.txt
 @@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
  
  project(SDL_gpu)
@@ -11,11 +11,11 @@ Index: sdl-gpu_0.0+git20210719/CMakeLists.txt
  file(READ ${CMAKE_CURRENT_SOURCE_DIR}/version.txt VERSION_FILE_CONTENTS)
  
  if((NOT DEFINED VERSION_MAJOR OR NOT DEFINED VERSION_MINOR OR NOT DEFINED VERSION_BUGFIX) AND VERSION_FILE_CONTENTS STREQUAL "")
-Index: sdl-gpu_0.0+git20210719/src/CMakeLists.txt
+Index: sdl-gpu/src/CMakeLists.txt
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/src/CMakeLists.txt
-+++ sdl-gpu_0.0+git20210719/src/CMakeLists.txt
-@@ -204,16 +204,16 @@ source_group(Common FILES ${SDL_gpu_SRCS
+--- sdl-gpu.orig/src/CMakeLists.txt
++++ sdl-gpu/src/CMakeLists.txt
+@@ -206,16 +206,16 @@ source_group(Common FILES ${SDL_gpu_SRCS
  # Install the headers and library
  if(INSTALL_LIBRARY)
  	if(USE_SDL1)

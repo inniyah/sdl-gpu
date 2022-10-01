@@ -1,8 +1,8 @@
-Index: sdl-gpu_0.0+git20210719/src/CMakeLists.txt
+Index: sdl-gpu/src/CMakeLists.txt
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/src/CMakeLists.txt
-+++ sdl-gpu_0.0+git20210719/src/CMakeLists.txt
-@@ -160,7 +160,8 @@ if(BUILD_SHARED)
+--- sdl-gpu.orig/src/CMakeLists.txt
++++ sdl-gpu/src/CMakeLists.txt
+@@ -162,7 +162,8 @@ if(BUILD_SHARED)
  			set_target_properties(SDL_gpu_shared PROPERTIES
  				OUTPUT_NAME ${SHARED_OUTPUT}
  				CLEAN_DIRECT_OUTPUT 1

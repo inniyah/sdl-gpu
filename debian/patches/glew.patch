@@ -1,7 +1,7 @@
-Index: sdl-gpu_0.0+git20210719/demos/CMakeLists.txt
+Index: sdl-gpu/demos/CMakeLists.txt
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/demos/CMakeLists.txt
-+++ sdl-gpu_0.0+git20210719/demos/CMakeLists.txt
+--- sdl-gpu.orig/demos/CMakeLists.txt
++++ sdl-gpu/demos/CMakeLists.txt
 @@ -13,7 +13,7 @@ target_link_libraries (init-demo ${DEMO_
  add_executable(camera-demo camera/main.c)
  target_link_libraries (camera-demo ${DEMO_LIBS})
@@ -11,10 +11,10 @@ Index: sdl-gpu_0.0+git20210719/demos/CMakeLists.txt
  target_link_libraries (3d-demo ${DEMO_LIBS})
  
  add_executable(tutorial-space-demo tutorial-space/main.c)
-Index: sdl-gpu_0.0+git20210719/demos/3d/main.c
+Index: sdl-gpu/demos/3d/main.c
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/demos/3d/main.c
-+++ sdl-gpu_0.0+git20210719/demos/3d/main.c
+--- sdl-gpu.orig/demos/3d/main.c
++++ sdl-gpu/demos/3d/main.c
 @@ -1,7 +1,7 @@
  #include "SDL.h"
  #include "SDL_gpu.h"
@@ -24,10 +24,10 @@ Index: sdl-gpu_0.0+git20210719/demos/3d/main.c
  #include <stdlib.h>
  
  
-Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1.h
+Index: sdl-gpu/include/SDL_gpu_OpenGL_1.h
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/include/SDL_gpu_OpenGL_1.h
-+++ sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1.h
+--- sdl-gpu.orig/include/SDL_gpu_OpenGL_1.h
++++ sdl-gpu/include/SDL_gpu_OpenGL_1.h
 @@ -11,7 +11,7 @@
      #define _WINGDI_H
      #endif
@@ -37,10 +37,10 @@ Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1.h
  	
  	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
  		#define GL_BGR GL_BGR_EXT
-Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1_BASE.h
+Index: sdl-gpu/include/SDL_gpu_OpenGL_1_BASE.h
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/include/SDL_gpu_OpenGL_1_BASE.h
-+++ sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1_BASE.h
+--- sdl-gpu.orig/include/SDL_gpu_OpenGL_1_BASE.h
++++ sdl-gpu/include/SDL_gpu_OpenGL_1_BASE.h
 @@ -11,7 +11,7 @@
      #define _WINGDI_H
      #endif
@@ -50,10 +50,10 @@ Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_1_BASE.h
  	
  	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
  		#define GL_BGR GL_BGR_EXT
-Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_2.h
+Index: sdl-gpu/include/SDL_gpu_OpenGL_2.h
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/include/SDL_gpu_OpenGL_2.h
-+++ sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_2.h
+--- sdl-gpu.orig/include/SDL_gpu_OpenGL_2.h
++++ sdl-gpu/include/SDL_gpu_OpenGL_2.h
 @@ -11,7 +11,7 @@
      #define _WINGDI_H
      #endif
@@ -63,10 +63,10 @@ Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_2.h
  	
  	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
  		#define GL_BGR GL_BGR_EXT
-Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_3.h
+Index: sdl-gpu/include/SDL_gpu_OpenGL_3.h
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/include/SDL_gpu_OpenGL_3.h
-+++ sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_3.h
+--- sdl-gpu.orig/include/SDL_gpu_OpenGL_3.h
++++ sdl-gpu/include/SDL_gpu_OpenGL_3.h
 @@ -11,7 +11,7 @@
      #define _WINGDI_H
      #endif
@@ -76,10 +76,10 @@ Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_3.h
  	
  	#if defined(GL_EXT_bgr) && !defined(GL_BGR)
  		#define GL_BGR GL_BGR_EXT
-Index: sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_4.h
+Index: sdl-gpu/include/SDL_gpu_OpenGL_4.h
 ===================================================================
---- sdl-gpu_0.0+git20210719.orig/include/SDL_gpu_OpenGL_4.h
-+++ sdl-gpu_0.0+git20210719/include/SDL_gpu_OpenGL_4.h
+--- sdl-gpu.orig/include/SDL_gpu_OpenGL_4.h
++++ sdl-gpu/include/SDL_gpu_OpenGL_4.h
 @@ -11,7 +11,7 @@
      #define _WINGDI_H
      #endif
