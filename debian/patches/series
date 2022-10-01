@@ -1,4 +1,6 @@
+fix_rendering.patch
 SDL_detection.patch
+cmake_version.patch
 SONAME.patch
 glew.patch
 multiarch.patch

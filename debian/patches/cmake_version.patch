@@ -1,0 +1,20 @@
+From 611686eb1e1996223462d2df2aed86319f4d857b Mon Sep 17 00:00:00 2001
+From: ikjordan <38705261+ikjordan@users.noreply.github.com>
+Date: Sun, 18 Sep 2022 10:16:04 +0100
+Subject: [PATCH] Update minimum cmake version
+
+So that options can be set by parent
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: sdl-gpu/CMakeLists.txt
+===================================================================
+--- sdl-gpu.orig/CMakeLists.txt
++++ sdl-gpu/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0)
++cmake_minimum_required(VERSION 3.13)
+ 
+ project(SDL_gpu)
+ 
