@@ -1,0 +1,2 @@
+debian/install-files/tests/CMakeLists.txt /usr/share/doc/libsdl2-gpu-demos/examples/tests/
+debian/install-files/demos/CMakeLists.txt /usr/share/doc/libsdl2-gpu-demos/examples/demos/

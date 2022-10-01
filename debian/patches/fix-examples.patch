@@ -1,0 +1,13 @@
+Index: sdl-gpu/tests/renderer/main.c
+===================================================================
+--- sdl-gpu.orig/tests/renderer/main.c
++++ sdl-gpu/tests/renderer/main.c
+@@ -562,7 +562,7 @@ static GPU_bool ReplaceImage(GPU_Rendere
+     return 0;
+ }
+ 
+-static GPU_Image* CopyImageFromSurface(GPU_Renderer* renderer, SDL_Surface* surface, SDL_Rect* rect)
++static GPU_Image* CopyImageFromSurface(GPU_Renderer* renderer, SDL_Surface* surface, GPU_Rect* rect)
+ {
+     GPU_Log(" %s (dummy)\n", __func__);
+     
