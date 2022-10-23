@@ -5,3 +5,4 @@ SONAME.patch
 glew.patch
 multiarch.patch
 fix-examples.patch
+fix-indent-warnings.patch
