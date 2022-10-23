@@ -2,6 +2,16 @@ CMakeCache.txt
 CMakeFiles
 Makefile
 build/
+build-tree/
+*-stamp
+debian/tmp/
+debian/.debhelper
+debian/*.substvars
+debian/files
+debian/stamp-patched
+debian/libsdl2-gpu-0/
+debian/libsdl2-gpu-dev/
+debian/libsdl2-gpu-demos/
 .pc/
 *.cmake
 *-demo
