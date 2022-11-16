@@ -186,12 +186,12 @@ else ( )
 	endif ( NOT SDL2_FOUND )
 
 	if ( NOT SDL2MAIN_LIBRARY )
-		message ( WARNING "SDL2MAIN_LIBRARY is NOTFOUND" )
+		#message ( WARNING "SDL2MAIN_LIBRARY is NOTFOUND" )
 		SET( SDL2MAIN_LIBRARY "" )
 	endif ( NOT SDL2MAIN_LIBRARY )
 
-	include_directories(${SDL2_INCLUDE_DIR})
-	link_libraries(${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY})
+	include_directories(${SDL2_INCLUDE_DIRS})
+	link_libraries(${SDL2MAIN_LIBRARY} ${SDL2_LIBRARIES})
 endif ()
 
 # Find the package for OpenGL
