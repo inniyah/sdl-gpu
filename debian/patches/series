@@ -6,3 +6,4 @@ glew.patch
 multiarch.patch
 fix-examples.patch
 fix-indent-warnings.patch
+check_if_active_target_is_null.patch

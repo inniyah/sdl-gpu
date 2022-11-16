@@ -1,0 +1,13 @@
+Index: sdl-gpu/src/renderer_GL_common.inl
+===================================================================
+--- sdl-gpu.orig/src/renderer_GL_common.inl
++++ sdl-gpu/src/renderer_GL_common.inl
+@@ -686,7 +686,7 @@ static GPU_bool SetActiveTarget(GPU_Rend
+     if(renderer->enabled_features & GPU_FEATURE_RENDER_TARGETS)
+     {
+         // Bind the FBO
+-        if(target != renderer->current_context_target->context->active_target)
++        if(renderer->current_context_target && target != renderer->current_context_target->context->active_target)
+         {
+             GLuint handle = ((GPU_TARGET_DATA*)target->data)->handle;
+             renderer->impl->FlushBlitBuffer(renderer);
