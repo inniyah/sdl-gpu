@@ -1,7 +1,7 @@
 #include "SDL.h"
 #include "SDL_gpu.h"
 #include "SDL_gpu_OpenGL_1.h"
-#include "glew.h"
+#include <GL/glew.h>
 #include <stdlib.h>
 
 
