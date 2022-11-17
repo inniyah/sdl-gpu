@@ -686,7 +686,7 @@ static GPU_bool SetActiveTarget(GPU_Renderer* renderer, GPU_Target* target)
     if(renderer->enabled_features & GPU_FEATURE_RENDER_TARGETS)
     {
         // Bind the FBO
-        if(target != renderer->current_context_target->context->active_target)
+        if(renderer->current_context_target && target != renderer->current_context_target->context->active_target)
         {
             GLuint handle = ((GPU_TARGET_DATA*)target->data)->handle;
             renderer->impl->FlushBlitBuffer(renderer);
