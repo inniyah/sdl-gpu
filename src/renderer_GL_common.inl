@@ -380,8 +380,16 @@ static_inline void upload_new_texture(void* pixels, GPU_Rect update_rect, Uint32
 	(void)bytes_per_pixel;
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
     glPixelStorei(GL_UNPACK_ROW_LENGTH, row_length);
-    glTexImage2D(GL_TEXTURE_2D, 0, format, (GLsizei)update_rect.w, (GLsizei)update_rect.h, 0,
-                    format, GL_UNSIGNED_BYTE, pixels);
+    if( format == GL_RGBA32F )
+    {
+        glTexImage2D( GL_TEXTURE_2D, 0, format, (GLsizei)update_rect.w, (GLsizei)update_rect.h, 0,
+            GL_RGBA, GL_FLOAT, pixels );
+    }
+    else
+    {
+        glTexImage2D( GL_TEXTURE_2D, 0, format, (GLsizei)update_rect.w, (GLsizei)update_rect.h, 0,
+            format, GL_UNSIGNED_BYTE, pixels );
+    }
     glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
     #else
@@ -1303,11 +1311,21 @@ static GPU_Target* Init(GPU_Renderer* renderer, GPU_RendererID renderer_request,
 
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 
-    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-
+    if( SDL_flags & GPU_INIT_ENABLE_FLOAT_FBO )
+    {
+        SDL_GL_SetAttribute( SDL_GL_FLOATBUFFERS, 1 );
+        SDL_GL_SetAttribute( SDL_GL_RED_SIZE, sizeof(float)*8 );
+        SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, sizeof( float )*8 );
+        SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, sizeof( float )*8 );
+        SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE, sizeof( float )*8 );
+    }
+    else
+    {
+        SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
+        SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
+        SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
+        SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE, 8 );
+    }
 	renderer->requested_id = renderer_request;
 
 #ifdef SDL_GPU_USE_SDL2
@@ -2418,12 +2436,23 @@ static GPU_Image* CreateUninitializedImage(GPU_Renderer* renderer, Uint16 w, Uin
             num_layers = 3;
             bytes_per_pixel = 1;
             break;
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+        case GPU_FORMAT_RGBAF:
+            gl_format = GL_RGBA32F;
+            num_layers = 1;
+            bytes_per_pixel = 4 * sizeof(float);
+            break;
+#endif
         default:
             GPU_PushErrorCode("GPU_CreateUninitializedImage", GPU_ERROR_DATA_ERROR, "Unsupported image format (0x%x)", format);
             return NULL;
     }
 
-    if(bytes_per_pixel < 1 || bytes_per_pixel > 4)
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+    if(bytes_per_pixel < 1 || bytes_per_pixel > 16)
+#else
+    if (bytes_per_pixel < 1 || bytes_per_pixel > 4)
+#endif
     {
         GPU_PushErrorCode("GPU_CreateUninitializedImage", GPU_ERROR_DATA_ERROR, "Unsupported number of bytes per pixel (%d)", bytes_per_pixel);
         return NULL;
@@ -2625,6 +2654,13 @@ static GPU_Image* CreateImageUsingTexture(GPU_Renderer* renderer, GPU_TextureHan
             bytes_per_pixel = 2;
             break;
         #endif
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+        case GL_RGBA32F:
+            gl_format = GPU_FORMAT_RGBAF;
+            num_layers = 1;
+            bytes_per_pixel = 4 * sizeof(float);
+            break;
+#endif
         default:
             GPU_PushErrorCode("GPU_CreateImageUsingTexture", GPU_ERROR_DATA_ERROR, "Unsupported GL image format (0x%x)", gl_format);
             return NULL;
@@ -3172,6 +3208,50 @@ static int compareFormats(GPU_Renderer* renderer, GLenum glFormat, SDL_Surface* 
 #endif
         }
         return 1;
+
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+    case GL_RGBA32F:
+
+        if (format->BytesPerPixel != 16)
+            return 1;
+
+        // Looks like RGBA?  Easy!
+        if (format->Rmask == 0x000000FF && format->Gmask == 0x0000FF00 && format->Bmask == 0x00FF0000)
+        {
+            if (surfaceFormatResult != NULL)
+                *surfaceFormatResult = GL_RGBA32F;
+            return 0;
+        }
+/*
+        // Looks like ABGR?
+        if (format->Rmask == 0xFF000000 && format->Gmask == 0x00FF0000 && format->Bmask == 0x0000FF00)
+        {
+#ifdef GL_ABGR
+            if (renderer->enabled_features & GPU_FEATURE_GL_ABGR)
+            {
+                if (surfaceFormatResult != NULL)
+                    *surfaceFormatResult = GL_ABGR;
+                return 0;
+            }
+#endif
+        }
+        // Looks like BGRA?
+        else if (format->Rmask == 0x00FF0000 && format->Gmask == 0x0000FF00 && format->Bmask == 0x000000FF)
+        {
+#ifdef GL_BGRA
+            if (renderer->enabled_features & GPU_FEATURE_GL_BGRA)
+            {
+                //ARGB, for OpenGL BGRA
+                if (surfaceFormatResult != NULL)
+                    *surfaceFormatResult = GL_BGRA;
+                return 0;
+            }
+#endif
+        }
+*/
+        return 1;
+#endif
+
     default:
         GPU_PushErrorCode("GPU_CompareFormats", GPU_ERROR_DATA_ERROR, "Invalid texture format (0x%x)", glFormat);
         return -1;
@@ -3205,6 +3285,9 @@ static SDL_PixelFormat* AllocFormat(GLenum glFormat)
         break;
 #endif
     case GL_RGBA:
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+    case GL_RGBA32F:
+#endif
         channels = 4;
         Rmask = 0x000000FF;
         Gmask = 0x0000FF00;
@@ -5373,6 +5456,23 @@ static void swizzle_for_format(SDL_Color* color, GLenum format, unsigned char pi
     }
 }
 
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+static void swizzle_for_format_float(SDL_Color *color, GLenum format, float pixel[4])
+{
+    switch (format)
+    {
+    case GL_RGBA32F:
+        color->r = (Uint8)pixel[0];
+        color->g = (Uint8)pixel[1];
+        color->b = (Uint8)pixel[2];
+        GET_ALPHA(*color) = (Uint8)pixel[3];
+        break;
+    default:
+        break;
+    }
+}
+#endif
+
 static SDL_Color GetPixel(GPU_Renderer* renderer, GPU_Target* target, Sint16 x, Sint16 y)
 {
     SDL_Color result = {0,0,0,0};
@@ -5389,9 +5489,26 @@ static SDL_Color GetPixel(GPU_Renderer* renderer, GPU_Target* target, Sint16 x, 
     {
         unsigned char pixels[4];
         GLenum format = ((GPU_TARGET_DATA*)target->data)->format;
+#ifdef SDL_GPU_SUPPORT_FLOAT_FBO
+        if (format == GL_RGBA32F)
+        {
+            float pixelsf[4];
+
+            glReadPixels(x, y, 1, 1, GL_RGBA32F, GL_FLOAT, pixelsf);
+
+            swizzle_for_format_float (&result, format, pixelsf);
+        }
+        else
+        {
+            glReadPixels(x, y, 1, 1, format, GL_UNSIGNED_BYTE, pixels);
+
+            swizzle_for_format(&result, format, pixels);
+        }
+#else
         glReadPixels(x, y, 1, 1, format, GL_UNSIGNED_BYTE, pixels);
         
         swizzle_for_format(&result, format, pixels);
+#endif
     }
 
     return result;

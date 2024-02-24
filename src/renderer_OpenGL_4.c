@@ -20,6 +20,7 @@ void GPU_FreeRenderer_OpenGL_4(GPU_Renderer* renderer) {}
 #define SDL_GPU_SKIP_LINE_WIDTH
 #define SDL_GPU_GLSL_VERSION 150
 #define SDL_GPU_GL_MAJOR_VERSION 4
+#define SDL_GPU_SUPPORT_FLOAT_FBO
 
 #include "renderer_GL_common.inl"
 #include "renderer_shapes_GL_common.inl"
