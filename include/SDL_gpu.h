@@ -301,7 +301,9 @@ typedef enum {
     GPU_FORMAT_YCbCr420P = 8,
     GPU_FORMAT_BGR = 9,
     GPU_FORMAT_BGRA = 10,
-    GPU_FORMAT_ABGR = 11
+    GPU_FORMAT_ABGR = 11,
+    GPU_FORMAT_RGBAF = 12,
+    GPU_FORMAT_RGBAF2 = 15
 } GPU_FormatEnum;
 
 /*! \ingroup ImageControls
@@ -574,6 +576,7 @@ static const GPU_InitFlagEnum GPU_INIT_DISABLE_AUTO_VIRTUAL_RESOLUTION = 0x8;
 static const GPU_InitFlagEnum GPU_INIT_REQUEST_COMPATIBILITY_PROFILE = 0x10;
 static const GPU_InitFlagEnum GPU_INIT_USE_ROW_BY_ROW_TEXTURE_UPLOAD_FALLBACK = 0x20;
 static const GPU_InitFlagEnum GPU_INIT_USE_COPY_TEXTURE_UPLOAD_FALLBACK = 0x40;
+static const GPU_InitFlagEnum GPU_INIT_ENABLE_FLOAT_FBO = 0x80;
 
 #define GPU_DEFAULT_INIT_FLAGS 0
 
